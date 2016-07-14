@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>취화선 물고기</title>
+<style>
+body{
+	margin:0px;
+}
+#stage{
+	width:100%;
+	height:700px;
+	border:1px solid red;
+}
+</style>
+<script src="../lib/Fish.js"></script>
+<script>
+var stage;
+var fishArray=new Array();
+var mouseX=0;
+var mouseY=0;
+
+window.addEventListener("load", function(){
+
+	init();	
+	create();	
+});
+
+function init(){
+	stage=document.getElementById("stage");	
+
+
+	//stage를 대상으로 마우스 이벤트 구현 
+	stage.addEventListener("mousemove", function(){
+		//마우스를 누르면 물고기의 좌표를 설정 
+		mouseX=event.clientX;
+		mouseY=event.clientY;
+
+		for(var i=0;i<fishArray.length;i++){
+			fishArray[i].targetX=event.clientX;
+			fishArray[i].targetY=event.clientY;
+		}
+	});
+}
+function create(){
+	//물고기 생성하기 	
+	var fish = new Fish(stage,50,50,mouseX,mouseY);
+	fish.init();
+	fishArray.push(fish);
+
+	setTimeout("create()",100);
+}
+</script>
+</head>
+<body>
+<div id="stage"></div>
+</body>
+</html>
