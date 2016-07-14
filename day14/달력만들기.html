@@ -36,11 +36,27 @@ var sel_yy;
 var sel_mm;
 var sel_dd;
 
+
 window.addEventListener("load", function(){
 	init();
 });	
 
 function init(){
+	//test
+
+	//7월은 무슨요일부터 시작하나?
+	var d = new Date();
+	d.setMonth(6);
+	d.setDate(1);
+	//document.write(d.getDay());
+	
+	//7월은 몇일까지 있나? (8월의 0번째 날)
+	//d.setMonth(8);
+	//d.setDate(0);
+	//document.write(d.getDate());
+
+
+
 	down=document.getElementById("down");
 
 	sel_yy=document.getElementById("sel_yy");
@@ -61,8 +77,15 @@ function init(){
 	}
 
 	//최대 42개의 날짜 박스를 생성한다!!
+	var n=0;
+
 	for(var i=1;i<=42;i++){
-		var box = new DateBox(down, 100,100,i);
+		if(i>d.getDay() && n<=31){
+			var box = new DateBox(down, 100,100, n);
+			n++;			
+		}else{
+			var box = new DateBox(down, 100,100, "");
+		}			
 		box.init();
 	}
 }
