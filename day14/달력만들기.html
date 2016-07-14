@@ -80,9 +80,9 @@ function init(){
 	var n=0;
 
 	for(var i=1;i<=42;i++){
-		if(i>d.getDay() && n<=31){
+		if(i>d.getDay() && n<31){
+			n++;
 			var box = new DateBox(down, 100,100, n);
-			n++;			
 		}else{
 			var box = new DateBox(down, 100,100, "");
 		}			
