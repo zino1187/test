@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>
+	Melon
+</title>
+<style>
+#monitor{
+	background:yellow;
+	width:500px;
+	height:100px;
+	border:3px solid green;
+	font-size:30pt;
+	color:red;
+	font-weight:bold;
+}
+</style>
+</head>
+<script>
+//문서내의 music이라는 요소를 플레이하자!!
+function play(){
+	document.getElementById("music").play();
+}
+
+function stop(){
+	document.getElementById("music").stop();
+}
+</script>
+<body>
+<audio id="music">
+	<source id="dest" src="../music/2.mp3"type="audio/mpeg">
+</audio>
+
+<div id="monitor">
+<marquee>재생버튼을 누르세요...</marquee>
+</div>
+
+<input type="button" value="◀◀">
+<input type="button" value="■" onClick="stop()">
+<input type="button" value="▶" onClick="play()">
+<input type="button" value="▶▶">
+Repeat : <input type="checkbox" >
+</body>
+
+</html>

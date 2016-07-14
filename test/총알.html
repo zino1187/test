@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title></title>
+<script>
+var stage;
+
+var Bullet = function(w,h,posX,posY){
+	this.width=w;
+	this.height=h;
+	this.x=posX;
+	this.y=posY;
+	this.span;
+
+	this.init=function(){
+		var me=this;
+		this.span=document.createElement("span");
+		this.span.style.position="absolute";
+		this.span.style.x=this.x+"px";
+		this.span.style.y=this.y+"px";
+		this.span.style.width=this.width+"px";
+		this.span.style.height=this.height+"px";
+		this.span.innerHTML="●";
+		this.span.style.color="red";
+
+		this.move();
+	}
+	
+	this.move = function(){
+		setTimeout(function(){
+			me.move();
+			console.log("나 호출중");
+		},500);
+	}
+}
+
+function init(){
+	stage=document.getElementById("stage");
+	
+	for(var i=0;i<30;i++){		
+		var b = new Bullet(20,20,0, i*100);
+		b.init();
+
+		stage.appendChild(b.span);
+	}
+}
+</script>
+</head>
+<body onLoad="init()">
+<div id="stage"></div>
+</body>
+</html>

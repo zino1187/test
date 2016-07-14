@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title></title>
+<script>
+var count=1;
+
+function next(){
+	count++;
+	var music=document.getElementById("music");
+	document.getElementById("dest").src="../music/"+count+".mp3";
+	
+	music.load();
+	music.play();
+}
+var flag=true;
+function pause(){
+	var music=document.getElementById("music");
+
+	if(flag=!flag){
+		music.pause();
+	}else{
+		music.play();
+	}
+	
+}
+</script>
+</head>
+<body>
+<input type="button" onClick="next()" value=">>">
+<input type="button" onClick="pause()" value="||">
+
+<audio controls id="music">
+  <source id="dest" src="../music/1.mp3" type="audio/mpeg">
+Your browser does not support the audio element.
+</audio>
+
+</body>
+</html>

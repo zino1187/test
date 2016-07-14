@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>겔러그</title>
+<style>
+body{margin:0px;}
+#stage{
+	width:1000px;
+	height:800px;
+	background-image:url("../images/gallerxy/bg.png");
+}
+</style>
+<script src="../lib/Hero.js"></script>
+<script src="./game_lib.js"></script>
+<script>
+var stage;
+var bgY=0;
+var hero;
+
+window.addEventListener("load", function(){
+	stage=document.getElementById("stage");
+	bgEffect();
+
+	//주인공 등장
+	hero = new Hero(stage,50,50,500-25,730);
+	hero.init();
+
+	//빨간 적군등장 
+	//파란 적군등장 
+	var redY=0;
+	var redCount=0;
+	for(var i=0;i<45;i++){
+		if(i%15==0){
+			redY+=50;
+			redCount=0;
+		}
+		var e = new Enemy(stage,30,30,100+(redCount*50),redY,"../images/gallerxy/enermy1.png");
+		e.init();
+		redCount++;
+	}
+	//파란 적군등장 
+	var blueY=150;
+	var blueCount=0;
+	for(var i=0;i<45;i++){
+		if(i%15==0){
+			blueY+=50;
+			blueCount=0;
+		}
+		var e = new Enemy(stage,30,30,100+(blueCount*50),blueY,"../images/gallerxy/enermy2.png");
+		e.init();
+		blueCount++;
+	}
+
+});
+
+//키보드 입력처리!!
+window.addEventListener("keydown", function(){
+	var key=event.keyCode; //입력한 아스키코드값!!
+	switch(key){ //소괄호에 조건 판단 대상이 되는 데이터!!
+		case 37:hero.velX=-2;break;
+		case 39:hero.velX=+2;break;
+		case 32:;break;
+	}			
+});
+window.addEventListener("keyup", function(){
+	var key=event.keyCode;
+
+	if(key==37||key==38||key==39||key==40){
+		hero.velX=0;
+	}
+	
+});
+
+//배경 이미지 흘러가지 효과!!
+function bgEffect(){
+	bgY+=2;
+	stage.style.backgroundPosition="0px "+bgY+"px";
+
+	setTimeout("bgEffect()", 10);
+}
+</script>
+</head>
+<body>
+<div id="stage"></div>
+</body>
+</html>

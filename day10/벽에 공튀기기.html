@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>벽에 공튀기기</title>
+<style>
+body{
+	margin:0px;
+}
+#stage{
+	border:1px solid red;
+}
+</style>
+<script src="../lib/lib.js"></script>
+<script>
+var stage;
+var stage_width=800;
+var stage_height=800;
+
+var ballImg=[
+	"../images/soccer.png",
+	"../images/football.png",
+	"../images/stamp.png",
+	"../images/tennis.png",
+	"../images/bill.png",
+	"../images/tennis.png"
+];
+
+/*볼을 정의한다*/
+var Ball = function(stage,width,height,x,y,velX,velY,src,rotate){
+	/*클래스가 보유한 변수를 멤버변수라 한다*/
+	this.stage=stage;
+	this.img;
+	this.width=width;
+	this.height=height;
+	this.x=x;
+	this.y=y;
+	this.src=src;
+	this.velX=velX; //x 축으로 몇픽셀씩 움직일지...
+	this.velY=velY; //y 축으로 몇픽셀씩 움직일지...
+	this.rotate=rotate; //시작할 각도
+	
+	this.init=function(){
+		this.img=document.createElement("img");
+		this.img.src=this.src;
+		this.img.style.width=this.width+"px";
+		this.img.style.height=this.height+"px";
+		this.img.style.position="absolute";
+		this.img.style.left=this.x+"px";
+		this.img.style.top=this.y+"px";
+
+		this.stage.appendChild(this.img);
+		this.move();
+	}
+
+	this.move=function(){
+		var me=this;
+		
+		//회전시키기 
+		this.rotate+=2;
+		this.img.style.transform="rotate("+this.rotate+"deg)";
+		
+		this.x+=this.velX; //현재 x위치에서 velX만큼 전진!!
+		this.y+=this.velY; //현재 y위치에서  velY만큼 전진!!
+		
+		//우측벽으로 나가는지 판단!! 
+		if(this.x>=stage_width-this.width || this.x<=0){
+			console.log("저 벽에 도달했어요!!"+this.x);
+			this.velX=-1*this.velX;
+		}
+		if(this.y>=stage_height-this.height || this.y<=0){
+			console.log("저 벽에 도달했어요!!"+this.x);
+			this.velY=-1*this.velY;
+		}
+
+
+		//이동하기 
+		this.img.style.left=this.x+"px";
+		this.img.style.top=this.y+"px";
+
+		setTimeout(function(){
+			me.move();	
+		}, 10);
+	}
+}
+
+//문서가 로드되면..
+window.addEventListener("load", function(){
+	stage=document.getElementById("stage");
+	
+	stage.style.width=stage_width+"px";
+	stage.style.height=stage_height+"px";
+});
+
+//스페이스바를 누르면...
+window.addEventListener("keydown", function(){
+	//볼을 탄생시키자!!
+	if(event.keyCode==32){
+		//랜덤값 구하기 
+		var r=parseInt(Math.random()*ballImg.length);
+		
+		//x의 증가량에 대한 범위 랜덤설정 
+		var rx=getRandomByRange(5,2);
+
+		//y의 증가량에 대한 범위 랜덤설정 
+		var ry=getRandomByRange(7,1);
+
+		var ball = new Ball(stage,50,50,0,0,rx,ry,ballImg[r],0);
+		ball.init();
+	}
+});
+
+//document.write(Math.ceil(2.1));
+//document.write(Math.floor(2.1));
+
+</script>
+</head>
+<body>
+<div id="stage"></div>
+</body>
+</html>
